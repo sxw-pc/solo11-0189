@@ -1,0 +1,36 @@
+[
+  {
+    "subsystem": "inspection",
+    "id": "i-tear",
+    "subject": "V1",
+    "action": "sample",
+    "data": {
+      "stratum": "tear"
+    },
+    "at": "2026-12-01",
+    "version": 1
+  },
+  {
+    "subsystem": "inspection",
+    "id": "i-stain",
+    "subject": "V1",
+    "action": "sample",
+    "data": {
+      "stratum": "stain"
+    },
+    "at": "2026-12-01",
+    "version": 1
+  },
+  {
+    "subsystem": "inspection",
+    "id": "i-sign",
+    "subject": "V1",
+    "action": "sign",
+    "data": {
+      "inspector": "I1",
+      "restorer": "R1"
+    },
+    "at": "2026-12-01",
+    "version": 1
+  }
+]

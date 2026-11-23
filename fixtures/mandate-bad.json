@@ -1,0 +1,13 @@
+[
+  {
+    "subsystem": "mandate",
+    "id": "m-pull",
+    "subject": "V1",
+    "action": "withdraw",
+    "data": {
+      "mandate_id": "M1"
+    },
+    "at": "2026-12-02",
+    "version": 2
+  }
+]

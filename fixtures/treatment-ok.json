@@ -1,0 +1,65 @@
+[
+  {
+    "subsystem": "treatment",
+    "id": "t-base",
+    "subject": "V1",
+    "action": "baseline",
+    "data": {
+      "ph": 6.5,
+      "strata": [
+        "tear",
+        "stain"
+      ],
+      "severity": 1
+    },
+    "at": "2026-12-01",
+    "version": 1
+  },
+  {
+    "subsystem": "treatment",
+    "id": "t-mat",
+    "subject": "V1",
+    "action": "material",
+    "data": {
+      "lot": "L1",
+      "ph_min": 6,
+      "ph_max": 7
+    },
+    "at": "2026-12-01",
+    "version": 1
+  },
+  {
+    "subsystem": "treatment",
+    "id": "t-clean",
+    "subject": "V1",
+    "action": "procedure",
+    "data": {
+      "method": "clean"
+    },
+    "at": "2026-12-02",
+    "version": 1
+  },
+  {
+    "subsystem": "treatment",
+    "id": "t-dry",
+    "subject": "V1",
+    "action": "procedure",
+    "data": {
+      "method": "dry",
+      "ready_at": "2026-12-04"
+    },
+    "at": "2026-12-03",
+    "version": 1
+  },
+  {
+    "subsystem": "treatment",
+    "id": "t-cons",
+    "subject": "V1",
+    "action": "procedure",
+    "data": {
+      "method": "consolidate"
+    },
+    "at": "2026-12-05",
+    "version": 1
+  }
+]

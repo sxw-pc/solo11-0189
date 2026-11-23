@@ -1,0 +1,14 @@
+[
+  {
+    "subsystem": "inspection",
+    "id": "i-damage",
+    "subject": "V1",
+    "action": "damage",
+    "data": {
+      "severity": 3,
+      "independent": true
+    },
+    "at": "2026-12-08",
+    "version": 2
+  }
+]
