@@ -1,8 +1,205 @@
 {
-  "volume":"MS-41","origin":"Hall-A","destination":"Museum-B",
-  "routes":[
-    {"id":"bare-direct","origin":"Hall-A","destination":"Museum-B","price":500,"arrival_hour":12,"moisture_dose":120,"cooled":false},
-    {"id":"cooled-direct","origin":"Hall-A","destination":"Museum-B","price":800,"arrival_hour":12,"moisture_dose":20,"cooled":true},
-    {"id":"sealed-relay","origin":"Hall-A","destination":"Museum-B","price":650,"arrival_hour":16,"moisture_dose":35,"cooled":true}
+  "volume": "MS-41",
+  "origin": "Hall-A",
+  "destination": "Museum-B",
+  "note": "供应商 moisture_dose 仅为申报摘要；实际风险剂量以 segments/handoffs 的逐段温湿度采样、封箱事件与控湿恢复时间重算，禁止直接加总或按该字段排序。",
+  "dose_limit": 40,
+  "safe_rh": 50,
+  "receiving_window": {"museum": "Museum-B", "open_hour": 9, "close_hour": 17, "evidence": "win-museum-b-09-17"},
+  "equipment": [
+    {"id": "van-cooled-A", "type": "van", "cooled": true, "setpoint_rh": 55, "evidence": "eq-van-cooled-A-cert"},
+    {"id": "van-bare-B", "type": "van", "cooled": false, "setpoint_rh": null, "evidence": "eq-van-bare-B-logbook"},
+    {"id": "van-relay-C", "type": "van", "cooled": true, "setpoint_rh": 53, "evidence": "eq-van-relay-C-cert"},
+    {"id": "box-ctrl-1", "type": "humidity_box", "cooled": true, "setpoint_rh": 55, "recovery_hours": 2, "evidence": "eq-box-ctrl-1-cal"},
+    {"id": "box-ctrl-2", "type": "humidity_box", "cooled": true, "setpoint_rh": 53, "recovery_hours": 2, "evidence": "eq-box-ctrl-2-cal"},
+    {"id": "box-bare-9", "type": "crate", "cooled": false, "setpoint_rh": null, "recovery_hours": null, "evidence": "eq-box-bare-9-logbook"},
+    {"id": "box-lag-3", "type": "humidity_box", "cooled": true, "setpoint_rh": 53, "recovery_hours": 4, "evidence": "eq-box-lag-3-cal"}
+  ],
+  "bookings": [
+    {"id": "bk-001", "resource": "van-cooled-A", "start_hour": 6, "end_hour": 8, "route": "prior-cooled-run", "evidence": "bk-001-slip"},
+    {"id": "bk-002", "resource": "van-relay-C", "start_hour": 16, "end_hour": 18, "route": "prior-relay-run", "evidence": "bk-002-slip"}
+  ],
+  "routes": [
+    {
+      "id": "bare-direct",
+      "origin": "Hall-A",
+      "destination": "Museum-B",
+      "price": 500,
+      "arrival_hour": 12,
+      "moisture_dose": 120,
+      "cooled": false,
+      "supplier_note": "无控湿纸箱；供应商申报 moisture_dose=120，实测重算同样超限，不得签发。",
+      "segments": [
+        {
+          "id": "bare-direct/s1",
+          "from": "Hall-A",
+          "to": "Museum-B",
+          "depart_hour": 8,
+          "arrive_hour": 12,
+          "resource": "van-bare-B",
+          "box": "box-bare-9",
+          "sealed": false,
+          "samples": [
+            {"id": "bare-s1-t8", "at_hour": 8, "temp_c": 27.0, "rh": 80, "received_hour": 8},
+            {"id": "bare-s1-t9", "at_hour": 9, "temp_c": 28.0, "rh": 80, "received_hour": 9},
+            {"id": "bare-s1-t10", "at_hour": 10, "temp_c": 28.0, "rh": 80, "received_hour": 10},
+            {"id": "bare-s1-t11", "at_hour": 11, "temp_c": 29.0, "rh": 80, "received_hour": 11},
+            {"id": "bare-s1-t12", "at_hour": 12, "temp_c": 29.0, "rh": 80, "received_hour": 12}
+          ]
+        }
+      ],
+      "handoffs": []
+    },
+    {
+      "id": "cooled-direct",
+      "origin": "Hall-A",
+      "destination": "Museum-B",
+      "price": 800,
+      "arrival_hour": 12,
+      "moisture_dose": 20,
+      "cooled": true,
+      "supplier_note": "全程控湿车箱；供应商申报 moisture_dose=20，逐段采样重算核对为 20。",
+      "segments": [
+        {
+          "id": "cooled-direct/s1",
+          "from": "Hall-A",
+          "to": "Museum-B",
+          "depart_hour": 8,
+          "arrive_hour": 12,
+          "resource": "van-cooled-A",
+          "box": "box-ctrl-1",
+          "sealed": true,
+          "samples": [
+            {"id": "cool-s1-t8", "at_hour": 8, "temp_c": 20.0, "rh": 55, "received_hour": 8},
+            {"id": "cool-s1-t9", "at_hour": 9, "temp_c": 20.0, "rh": 55, "received_hour": 9},
+            {"id": "cool-s1-t10", "at_hour": 10, "temp_c": 20.0, "rh": 55, "received_hour": 10},
+            {"id": "cool-s1-t11", "at_hour": 11, "temp_c": 20.0, "rh": 55, "received_hour": 11},
+            {"id": "cool-s1-t12", "at_hour": 12, "temp_c": 20.0, "rh": 55, "received_hour": 12}
+          ]
+        }
+      ],
+      "handoffs": []
+    },
+    {
+      "id": "sealed-relay",
+      "origin": "Hall-A",
+      "destination": "Museum-B",
+      "price": 650,
+      "arrival_hour": 16,
+      "moisture_dose": 35,
+      "cooled": true,
+      "supplier_note": "经 Hub-X 中转：开箱 1 小时、再封箱后密封待发 1 小时；供应商申报 moisture_dose=35，须以开箱/再封箱记录及分段采样重算，再封箱后不得沿用上一段控湿状态。",
+      "segments": [
+        {
+          "id": "sealed-relay/s1",
+          "from": "Hall-A",
+          "to": "Hub-X",
+          "depart_hour": 8,
+          "arrive_hour": 11,
+          "resource": "van-cooled-A",
+          "box": "box-ctrl-1",
+          "sealed": true,
+          "samples": [
+            {"id": "relay-s1-t8", "at_hour": 8, "temp_c": 20.0, "rh": 55, "received_hour": 8},
+            {"id": "relay-s1-t9", "at_hour": 9, "temp_c": 20.0, "rh": 55, "received_hour": 9},
+            {"id": "relay-s1-t10", "at_hour": 10, "temp_c": 20.0, "rh": 55, "received_hour": 10},
+            {"id": "relay-s1-t11", "at_hour": 11, "temp_c": 20.0, "rh": 55, "received_hour": 11}
+          ]
+        },
+        {
+          "id": "sealed-relay/s2",
+          "from": "Hub-X",
+          "to": "Museum-B",
+          "depart_hour": 13,
+          "arrive_hour": 16,
+          "resource": "van-relay-C",
+          "box": "box-ctrl-2",
+          "sealed": true,
+          "samples": [
+            {"id": "relay-s2-t13", "at_hour": 13, "temp_c": 21.0, "rh": 55, "received_hour": 13},
+            {"id": "relay-s2-t14", "at_hour": 14, "temp_c": 21.0, "rh": 53, "received_hour": 14},
+            {"id": "relay-s2-t15", "at_hour": 15, "temp_c": 20.0, "rh": 53, "received_hour": 15},
+            {"id": "relay-s2-t16", "at_hour": 16, "temp_c": 20.0, "rh": 53, "received_hour": 16},
+            {"id": "relay-s2-t15-late", "at_hour": 15, "temp_c": 22.0, "rh": 75, "received_hour": 18, "note": "迟到传感器回执：18 时才送达，7 时签发时不可得，只能事后重算"}
+          ]
+        }
+      ],
+      "handoffs": [
+        {
+          "id": "sealed-relay/h1",
+          "at": "Hub-X",
+          "open_hour": 11,
+          "reseal_hour": 12,
+          "next_depart_hour": 13,
+          "box": "box-ctrl-2",
+          "seal_event_open": "seal-relay-open-001",
+          "seal_event_reseal": "seal-relay-reseal-001",
+          "samples": [
+            {"id": "relay-h1-t11", "at_hour": 11, "temp_c": 23.0, "rh": 55, "received_hour": 11},
+            {"id": "relay-h1-t12", "at_hour": 12, "temp_c": 23.0, "rh": 55, "received_hour": 12}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "relay-lag-fail",
+      "origin": "Hall-A",
+      "destination": "Museum-B",
+      "price": 600,
+      "arrival_hour": 16,
+      "moisture_dose": 30,
+      "cooled": true,
+      "supplier_note": "反例：两段各自低于 40、供应商静态 dose 合计仅 30；但开箱后控湿箱恢复滞后 4 小时，连续累计实测 42 超限。单段过滤、最短路或把 dose 当可加静态边权都会误签。",
+      "segments": [
+        {
+          "id": "relay-lag-fail/s1",
+          "from": "Hall-A",
+          "to": "Hub-Y",
+          "depart_hour": 8,
+          "arrive_hour": 11,
+          "resource": "van-cooled-A",
+          "box": "box-ctrl-1",
+          "sealed": true,
+          "samples": [
+            {"id": "lag-s1-t8", "at_hour": 8, "temp_c": 20.0, "rh": 55, "received_hour": 8},
+            {"id": "lag-s1-t9", "at_hour": 9, "temp_c": 20.0, "rh": 55, "received_hour": 9},
+            {"id": "lag-s1-t10", "at_hour": 10, "temp_c": 20.0, "rh": 55, "received_hour": 10},
+            {"id": "lag-s1-t11", "at_hour": 11, "temp_c": 20.0, "rh": 55, "received_hour": 11}
+          ]
+        },
+        {
+          "id": "relay-lag-fail/s2",
+          "from": "Hub-Y",
+          "to": "Museum-B",
+          "depart_hour": 13,
+          "arrive_hour": 16,
+          "resource": "van-relay-C",
+          "box": "box-lag-3",
+          "sealed": true,
+          "samples": [
+            {"id": "lag-s2-t13", "at_hour": 13, "temp_c": 22.0, "rh": 57, "received_hour": 13},
+            {"id": "lag-s2-t14", "at_hour": 14, "temp_c": 22.0, "rh": 53, "received_hour": 14},
+            {"id": "lag-s2-t15", "at_hour": 15, "temp_c": 21.0, "rh": 54, "received_hour": 15},
+            {"id": "lag-s2-t16", "at_hour": 16, "temp_c": 20.0, "rh": 53, "received_hour": 16}
+          ]
+        }
+      ],
+      "handoffs": [
+        {
+          "id": "relay-lag-fail/h1",
+          "at": "Hub-Y",
+          "open_hour": 11,
+          "reseal_hour": 12,
+          "next_depart_hour": 13,
+          "box": "box-lag-3",
+          "seal_event_open": "seal-lag-open-001",
+          "seal_event_reseal": "seal-lag-reseal-001",
+          "samples": [
+            {"id": "lag-h1-t11", "at_hour": 11, "temp_c": 25.0, "rh": 57, "received_hour": 11},
+            {"id": "lag-h1-t12", "at_hour": 12, "temp_c": 25.0, "rh": 57, "received_hour": 12}
+          ]
+        }
+      ]
+    }
   ]
 }
