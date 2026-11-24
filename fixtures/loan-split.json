@@ -1,0 +1,9 @@
+{
+  "manifest": ["V1", "F12"],
+  "events": [
+    {"id":"outbound","action":"handoff","package":"C1","location":"carrier","at":10,"received_at":10},
+    {"id":"gallery","action":"receive","package":"C1","location":"gallery","at":12,"received_at":12},
+    {"id":"folio-lab","action":"unpack","package":"C1","item":"F12","location":"lab","at":14,"received_at":17},
+    {"id":"return-crate","action":"return","package":"C1","location":"museum","at":18,"received_at":18}
+  ]
+}
