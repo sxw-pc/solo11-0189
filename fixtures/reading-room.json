@@ -1,0 +1,7 @@
+{
+  "volume":"MS-41","open_hours":[10,11,12],
+  "requests":[
+    {"id":"reader-A","volume":"MS-41","hour":10,"duration":1},
+    {"id":"reader-B","volume":"MS-41","hour":10,"duration":1}
+  ]
+}
