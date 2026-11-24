@@ -1,0 +1,4 @@
+[
+  {"id":"bench-a","volume":"V1","restorer":"R1","device":"camera","start":8,"end":12},
+  {"id":"bench-b","volume":"V2","restorer":"R1","device":"timer","start":8,"end":12}
+]
