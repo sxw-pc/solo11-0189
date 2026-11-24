@@ -1,9 +1,30 @@
 {
   "manifest": ["V1", "F12"],
   "events": [
-    {"id":"outbound","action":"handoff","package":"C1","location":"carrier","at":10,"received_at":10},
-    {"id":"gallery","action":"receive","package":"C1","location":"gallery","at":12,"received_at":12},
-    {"id":"folio-lab","action":"unpack","package":"C1","item":"F12","location":"lab","at":14,"received_at":17},
-    {"id":"return-crate","action":"return","package":"C1","location":"museum","at":18,"received_at":18}
-  ]
+    {"id": "outbound", "action": "handoff", "package": "C1", "location": "carrier", "at": 10, "received_at": 10, "party": "museum", "to_party": "carrier"},
+    {"id": "gallery", "action": "receive", "package": "C1", "location": "gallery", "at": 12, "received_at": 12, "party": "carrier", "to_party": "gallery"},
+    {"id": "folio-lab", "action": "unpack", "package": "C1", "item": "F12", "location": "lab", "at": 14, "received_at": 17, "party": "gallery"},
+    {"id": "return-crate", "action": "return", "package": "C1", "location": "museum", "at": 18, "received_at": 18, "party": "carrier", "to_party": "museum"}
+  ],
+  "route_a": {
+    "note": "处置一：拆件属实。展馆/实验室双签 F12 开箱交接 + 实验室在库盘点；证明 V1 已返、F12 仍在实验室，出返馆缺件催回单。",
+    "events": [
+      {"id": "a-seal", "action": "seal", "package": "C1", "seal_id": "S-C1", "location": "museum", "at": 8, "received_at": 20, "party": "museum", "items": ["V1", "F12"]},
+      {"id": "a-open", "action": "open", "package": "C1", "location": "gallery", "at": 13, "received_at": 20, "party": "gallery", "seal_id": "S-C1", "items": ["V1", "F12"]},
+      {"id": "a-f12-handoff", "action": "item_handoff", "package": "C1", "item": "F12", "from_party": "gallery", "to_party": "lab", "location": "lab", "at": 15, "received_at": 21},
+      {"id": "a-lab-inventory", "action": "inventory", "item": "F12", "location": "lab", "at": 22, "received_at": 22, "party": "lab"},
+      {"id": "a-correction", "action": "correction", "supersedes": "inference:whole-crate-returned", "correct_result": "V1 已返馆；F12 经双签交接在实验室在册，整箱返馆回执不及于 F12", "items": ["V1", "F12"], "at": 23, "received_at": 23}
+    ]
+  },
+  "route_b": {
+    "note": "处置二：送检扫码误归 C1。返馆时封签未开证明 + 逐件点验原件 + 实验室纠错回执；证明 V1/F12 均已返馆，出闭合返馆单。",
+    "events": [
+      {"id": "b-seal", "action": "seal", "package": "C1", "seal_id": "S-C1", "location": "museum", "at": 8, "received_at": 20, "party": "museum", "items": ["V1", "F12"]},
+      {"id": "b-seal-intact", "action": "seal_proof", "package": "C1", "seal_id": "S-C1", "location": "museum", "at": 18, "received_at": 24, "intact": true, "party": "museum"},
+      {"id": "b-lab-correction", "action": "inventory", "item": "F12", "location": "museum", "at": 19, "received_at": 24, "party": "lab-note", "note": "实验室纠错回执：原 folio-lab 送检扫码系误归 C1，F12 实际随箱未拆出"},
+      {"id": "b-check-v1", "action": "return_check", "package": "C1", "item": "V1", "location": "museum", "at": 19, "received_at": 25, "party": "museum"},
+      {"id": "b-check-f12", "action": "return_check", "package": "C1", "item": "F12", "location": "museum", "at": 19, "received_at": 25, "party": "museum"},
+      {"id": "b-correction", "action": "correction", "supersedes": "inference:whole-crate-returned", "correct_result": "封签 S-C1 全程未开且逐件点验在册，原全返结论改由封签+点验证据支撑；folio-lab 扫码系误归", "items": ["V1", "F12"], "at": 26, "received_at": 26}
+    ]
+  }
 }
