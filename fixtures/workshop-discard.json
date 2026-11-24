@@ -1,7 +1,232 @@
 {
-  "container":"D1","capacity":10,
-  "entries":[
-    {"id":"w1","container":"D1","kg":6,"category":"wet-cellulose","source":"MS-41"},
-    {"id":"w2","container":"D1","kg":3,"category":"solvent-pads","source":"MS-52"}
-  ]
+  "container": "D1",
+  "capacity": 10,
+  "entries": [
+    {"id": "w1", "container": "D1", "kg": 6, "category": "wet-cellulose", "source": "MS-41"},
+    {"id": "w2", "container": "D1", "kg": 3, "category": "solvent-pads", "source": "MS-52"}
+  ],
+  "note": "entries 仅保留旧聚合夹具的重量视图；可交付判定必须以 event_streams 重算为准。",
+  "event_streams": {
+    "prologue": [
+      {
+        "subsystem": "workshop-waste", "id": "src-w1", "subject": "w1",
+        "action": "source", "at": "2026-11-20T08:00:00", "version": 1,
+        "data": {"batch": "w1", "work_order": "MS-41", "kg": 6, "declared_category": "wet-cellulose"}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "src-w2", "subject": "w2",
+        "action": "source", "at": "2026-11-20T08:05:00", "version": 1,
+        "data": {"batch": "w2", "work_order": "MS-52", "kg": 3, "declared_category": "solvent-pads"}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "tare-d1", "subject": "D1",
+        "action": "tare", "at": "2026-11-20T08:10:00", "version": 1,
+        "data": {"container": "D1", "tare_kg": 1.0, "capacity_kg": 10}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "tare-d2", "subject": "D2",
+        "action": "tare", "at": "2026-11-20T08:12:00", "version": 1,
+        "data": {"container": "D2", "tare_kg": 0.8, "capacity_kg": 10}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "place-w1", "subject": "D1",
+        "action": "place", "at": "2026-11-20T08:30:00", "version": 1,
+        "data": {"batch": "w1", "container": "D1", "kg": 6, "gross_kg": 7.0}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "place-w2", "subject": "D1",
+        "action": "place", "at": "2026-11-20T08:35:00", "version": 1,
+        "data": {"batch": "w2", "container": "D1", "kg": 3, "gross_kg": 10.0}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "seal-d1", "subject": "D1",
+        "action": "seal", "at": "2026-11-20T08:40:00", "version": 1,
+        "data": {"container": "D1", "seal_id": "S-D1-001"}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "mf-orig-issue", "subject": "D1",
+        "action": "issue", "at": "2026-11-20T09:00:00", "version": 1,
+        "data": {
+          "manifest_id": "MF-ORIG", "container": "D1", "capacity_kg": 10,
+          "museum_party": "馆员-赵宁",
+          "note": "旧流程仅按 9≤10kg 拟签发；分类核证缺失，新规则下暂缓交付"
+        }
+      }
+    ],
+    "water_based_certified": [
+      {
+        "subsystem": "workshop-waste", "id": "wb-supplier", "subject": "w2",
+        "action": "classify", "at": "2026-11-20T10:00:00", "version": 1,
+        "data": {"batch": "w2", "result": "water-based", "basis": "supplier-cert",
+                 "doc": "MS-52-SUPPLIER-COA-77"}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "wb-inhouse", "subject": "w2",
+        "action": "classify", "at": "2026-11-20T10:30:00", "version": 1,
+        "data": {"batch": "w2", "result": "water-based", "basis": "inhouse-review",
+                 "doc": "馆内复核-W2-无溶剂判定"}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "mf-a-issue", "subject": "D1",
+        "action": "issue", "at": "2026-11-20T11:00:00", "version": 1,
+        "data": {
+          "manifest_id": "MF-A-01", "container": "D1", "capacity_kg": 10,
+          "museum_party": "馆员-赵宁",
+          "note": "w2 双证核证为无溶剂水基垫，按内部兼容表可与 w1 同桶；分类更正证据附原扫描后"
+        }
+      },
+      {
+        "subsystem": "workshop-waste", "id": "mf-a-sign", "subject": "D1",
+        "action": "sign", "at": "2026-11-20T11:20:00", "version": 1,
+        "data": {"manifest_id": "MF-A-01", "container": "D1",
+                 "museum_party": "馆员-赵宁", "carrier_party": "清运司机-钱进",
+                 "driver": "清运司机-钱进"}
+      }
+    ],
+    "solvent_confirmed_split_before_pickup": [
+      {
+        "subsystem": "workshop-waste", "id": "sv-supplier", "subject": "w2",
+        "action": "classify", "at": "2026-11-20T10:00:00", "version": 1,
+        "data": {"batch": "w2", "result": "solvent", "basis": "supplier-cert",
+                 "doc": "MS-52-SUPPLIER-BATCH-L42-含溶剂"}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "sv-inhouse", "subject": "w2",
+        "action": "classify", "at": "2026-11-20T10:30:00", "version": 1,
+        "data": {"batch": "w2", "result": "solvent", "basis": "inhouse-review",
+                 "doc": "馆内复核-W2-含溶剂检出"}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "b-unseal", "subject": "D1",
+        "action": "unseal", "at": "2026-11-20T10:45:00", "version": 1,
+        "data": {"container": "D1", "seal_id": "S-D1-001"}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "b-split-w2", "subject": "w2",
+        "action": "split_place", "at": "2026-11-20T10:55:00", "version": 1,
+        "data": {"batch": "w2", "from_container": "D1", "to_container": "D2",
+                 "kg": 3, "gross_kg": 3.8}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "b-reseal-d1", "subject": "D1",
+        "action": "seal", "at": "2026-11-20T11:05:00", "version": 1,
+        "data": {"container": "D1", "seal_id": "S-D1-002"}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "b-seal-d2", "subject": "D2",
+        "action": "seal", "at": "2026-11-20T11:06:00", "version": 1,
+        "data": {"container": "D2", "seal_id": "S-D2-001"}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "b-mf-d1-issue", "subject": "D1",
+        "action": "issue", "at": "2026-11-20T11:15:00", "version": 1,
+        "data": {"manifest_id": "MF-B-D1", "container": "D1", "capacity_kg": 10,
+                 "museum_party": "馆员-赵宁",
+                 "note": "现场拆分后 D1 仅持 w1 湿纸浆 6kg，双签放行"}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "b-mf-d2-issue", "subject": "D2",
+        "action": "issue", "at": "2026-11-20T11:16:00", "version": 1,
+        "data": {"manifest_id": "MF-B-D2", "container": "D2", "capacity_kg": 10,
+                 "museum_party": "馆员-赵宁",
+                 "note": "D2 单持 w2 含溶剂清洁垫 3kg，按溶剂类单独清运"}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "b-mf-d1-sign", "subject": "D1",
+        "action": "sign", "at": "2026-11-20T11:25:00", "version": 1,
+        "data": {"manifest_id": "MF-B-D1", "container": "D1",
+                 "museum_party": "馆员-赵宁", "carrier_party": "清运司机-钱进",
+                 "driver": "清运司机-钱进"}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "b-mf-d2-sign", "subject": "D2",
+        "action": "sign", "at": "2026-11-20T11:26:00", "version": 1,
+        "data": {"manifest_id": "MF-B-D2", "container": "D2",
+                 "museum_party": "馆员-赵宁", "carrier_party": "清运司机-钱进",
+                 "driver": "清运司机-钱进"}
+      }
+    ],
+    "solvent_confirmed_after_driver_signed": [
+      {
+        "subsystem": "workshop-waste", "id": "c-legacy-sign", "subject": "D1",
+        "action": "legacy_sign", "at": "2026-11-20T09:20:00", "version": 1,
+        "data": {"manifest_id": "MF-ORIG", "container": "D1",
+                 "museum_party": "馆员-赵宁", "driver": "清运司机-钱进"}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "c-sv-supplier", "subject": "w2",
+        "action": "classify", "at": "2026-11-21T09:00:00", "version": 1,
+        "data": {"batch": "w2", "result": "solvent", "basis": "supplier-cert",
+                 "doc": "MS-52-SUPPLIER-BATCH-L42-含溶剂"}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "c-sv-inhouse", "subject": "w2",
+        "action": "classify", "at": "2026-11-21T09:30:00", "version": 1,
+        "data": {"batch": "w2", "result": "solvent", "basis": "inhouse-review",
+                 "doc": "馆内复核-W2-含溶剂检出"}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "c-freeze", "subject": "D1",
+        "action": "freeze", "at": "2026-11-21T10:00:00", "version": 1,
+        "data": {"manifest_id": "MF-ORIG", "museum_party": "馆员-赵宁"}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "c-recall", "subject": "D1",
+        "action": "recall", "at": "2026-11-21T10:30:00", "version": 1,
+        "data": {"manifest_id": "MF-ORIG", "recall_id": "RC-001",
+                 "seal_id": "S-D1-001", "museum_party": "馆员-赵宁",
+                 "driver": "清运司机-钱进",
+                 "note": "追认司机实际持有的封签桶 S-D1-001，原物追回现场复称"}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "c-unseal", "subject": "D1",
+        "action": "unseal", "at": "2026-11-21T11:00:00", "version": 1,
+        "data": {"container": "D1", "seal_id": "S-D1-001"}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "c-split-w2", "subject": "w2",
+        "action": "split_place", "at": "2026-11-21T11:15:00", "version": 1,
+        "data": {"batch": "w2", "from_container": "D1", "to_container": "D2",
+                 "kg": 3, "gross_kg": 3.8}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "c-reseal-d1", "subject": "D1",
+        "action": "seal", "at": "2026-11-21T11:25:00", "version": 1,
+        "data": {"container": "D1", "seal_id": "S-D1-003"}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "c-seal-d2", "subject": "D2",
+        "action": "seal", "at": "2026-11-21T11:26:00", "version": 1,
+        "data": {"container": "D2", "seal_id": "S-D2-002"}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "c-correct-d1", "subject": "D1",
+        "action": "correct_issue", "at": "2026-11-21T11:40:00", "version": 1,
+        "data": {"manifest_id": "MF-C-D1", "linked_from": "MF-ORIG",
+                 "container": "D1", "capacity_kg": 10, "museum_party": "馆员-周启",
+                 "note": "追回复称后 D1 仅持 w1 湿纸浆 6kg；原 MF-ORIG 冻结留档不覆盖"}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "c-correct-d2", "subject": "D2",
+        "action": "correct_issue", "at": "2026-11-21T11:41:00", "version": 1,
+        "data": {"manifest_id": "MF-C-D2", "linked_from": "MF-ORIG",
+                 "container": "D2", "capacity_kg": 10, "museum_party": "馆员-周启",
+                 "note": "分装出 w2 含溶剂清洁垫 3kg 单桶清运；关联追回单 RC-001"}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "c-mf-d1-sign", "subject": "D1",
+        "action": "sign", "at": "2026-11-21T12:00:00", "version": 1,
+        "data": {"manifest_id": "MF-C-D1", "container": "D1",
+                 "museum_party": "馆员-周启", "carrier_party": "清运司机-钱进",
+                 "driver": "清运司机-钱进"}
+      },
+      {
+        "subsystem": "workshop-waste", "id": "c-mf-d2-sign", "subject": "D2",
+        "action": "sign", "at": "2026-11-21T12:01:00", "version": 1,
+        "data": {"manifest_id": "MF-C-D2", "container": "D2",
+                 "museum_party": "馆员-周启", "carrier_party": "清运司机-钱进",
+                 "driver": "清运司机-钱进"}
+      }
+    ]
+  }
 }
