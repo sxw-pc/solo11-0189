@@ -1,7 +1,52 @@
 {
-  "volume":"MS-41","open_hours":[10,11,12],
-  "requests":[
-    {"id":"reader-A","volume":"MS-41","hour":10,"duration":1},
-    {"id":"reader-B","volume":"MS-41","hour":10,"duration":1}
-  ]
+  "volume": "MS-41",
+  "open_hours": [10, 11, 12],
+  "staff_hours": [9, 10, 11, 12, 13],
+  "desks": [
+    {"id": "desk-1"},
+    {"id": "desk-2"}
+  ],
+  "requests": [
+    {"id": "reader-A", "volume": "MS-41", "hour": 10, "duration": 1,
+     "qualified": true, "accepted_hours": [12]},
+    {"id": "reader-B", "volume": "MS-41", "hour": 10, "duration": 1,
+     "qualified": true, "accepted_hours": [12]}
+  ],
+  "events": [],
+  "scenarios": {
+    "handover_at_11": {
+      "librarian_tasks": [
+        {"id": "task-handover-11", "hour": 11, "name": "不可移动馆员交接", "fixed": true}
+      ]
+    },
+    "late_arrivals": {
+      "requests": [
+        {"id": "reader-A", "volume": "MS-41", "hour": 10, "duration": 1,
+         "qualified": true, "accepted_hours": [12]},
+        {"id": "reader-B", "volume": "MS-41", "hour": 10, "duration": 1,
+         "qualified": true, "accepted_hours": [12]},
+        {"id": "reader-C", "volume": "MS-41", "hour": 12, "duration": 1,
+         "qualified": true, "accepted_hours": []}
+      ],
+      "events": [
+        {"id": "ev-arrival-a", "type": "arrival", "request_id": "reader-A",
+         "at": "2026-11-24T10:10:00"},
+        {"id": "ev-arrival-c-late", "type": "arrival", "request_id": "reader-C",
+         "at": "2026-11-24T12:20:00"}
+      ]
+    },
+    "cancellation": {
+      "events": [
+        {"id": "ev-cancel-a", "type": "cancel", "request_id": "reader-A",
+         "at": "2026-11-24T09:40:00"}
+      ]
+    },
+    "reinspection_ban": {
+      "events": [
+        {"id": "ev-ban-ms41", "type": "ban", "volume": "MS-41",
+         "at": "2026-11-24T09:30:00",
+         "reason": "修复复检发现墨迹洇散，下发禁阅复检单"}
+      ]
+    }
+  }
 }
