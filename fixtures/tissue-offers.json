@@ -1,7 +1,62 @@
 {
-  "material":"japanese-tissue-12gsm","needed":5,"needed_by":"2026-05-03",
-  "offers":[
-    {"id":"V1","material":"japanese-tissue-12gsm","unit_price":50,"minimum":10,"delivery":"2026-05-05","expedite_fee":100,"expedite_delivery":"2026-05-02"},
-    {"id":"V2","material":"japanese-tissue-12gsm","unit_price":150,"minimum":5,"delivery":"2026-05-01","expedite_fee":0,"expedite_delivery":"2026-05-01"}
+  "material": "japanese-tissue-12gsm",
+  "gsm": 12,
+  "as_of": "2026-04-20",
+  "demands": [
+    {"work_order": "MS-41", "material": "japanese-tissue-12gsm", "gsm": 12, "needed": 5, "needed_by": "2026-05-03"},
+    {"work_order": "MS-42", "material": "japanese-tissue-12gsm", "gsm": 12, "needed": 5, "needed_by": "2026-05-06"}
+  ],
+  "offers": [
+    {
+      "id": "V1",
+      "supplier": "和纸问屋一丁目",
+      "material": "japanese-tissue-12gsm",
+      "gsm": 12,
+      "unit_price": 50,
+      "minimum": 10,
+      "lot": "LOT-V1-2604",
+      "lot_expiry": "2026-06-30",
+      "certificate": {"verified": true, "material": "japanese-tissue-12gsm", "gsm": 12, "doc": "CERT-V1-12G-2604"},
+      "quote_valid_until": "2026-04-30",
+      "delivery": "2026-05-05",
+      "regular_confirmed": 10,
+      "expedite_fee": 100,
+      "expedite_delivery": "2026-05-02",
+      "expedite_confirmed": 10
+    },
+    {
+      "id": "V2",
+      "supplier": "京都雁皮纸商",
+      "material": "japanese-tissue-12gsm",
+      "gsm": 12,
+      "unit_price": 150,
+      "minimum": 5,
+      "lot": "LOT-V2-2604",
+      "lot_expiry": "2026-08-31",
+      "certificate": {"verified": true, "material": "japanese-tissue-12gsm", "gsm": 12, "doc": "CERT-V2-12G-2604"},
+      "quote_valid_until": "2026-05-15",
+      "delivery": "2026-05-01",
+      "regular_confirmed": 5,
+      "expedite_fee": 0,
+      "expedite_delivery": "2026-05-01",
+      "expedite_confirmed": 0
+    },
+    {
+      "id": "V3",
+      "supplier": "域外廉价纸行",
+      "material": "japanese-tissue-12gsm",
+      "gsm": 9,
+      "unit_price": 20,
+      "minimum": 1,
+      "lot": "LOT-V3-2604",
+      "lot_expiry": "2026-12-31",
+      "certificate": {"verified": false, "material": "japanese-tissue-9gsm", "gsm": 9, "doc": "CERT-V3-9G-2604"},
+      "quote_valid_until": "2026-06-30",
+      "delivery": "2026-04-28",
+      "regular_confirmed": 100,
+      "expedite_fee": 0,
+      "expedite_delivery": "2026-04-28",
+      "expedite_confirmed": 0
+    }
   ]
 }
