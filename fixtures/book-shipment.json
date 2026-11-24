@@ -1,0 +1,8 @@
+{
+  "volume":"MS-41","origin":"Hall-A","destination":"Museum-B",
+  "routes":[
+    {"id":"bare-direct","origin":"Hall-A","destination":"Museum-B","price":500,"arrival_hour":12,"moisture_dose":120,"cooled":false},
+    {"id":"cooled-direct","origin":"Hall-A","destination":"Museum-B","price":800,"arrival_hour":12,"moisture_dose":20,"cooled":true},
+    {"id":"sealed-relay","origin":"Hall-A","destination":"Museum-B","price":650,"arrival_hour":16,"moisture_dose":35,"cooled":true}
+  ]
+}
