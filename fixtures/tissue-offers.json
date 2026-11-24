@@ -1,0 +1,7 @@
+{
+  "material":"japanese-tissue-12gsm","needed":5,"needed_by":"2026-05-03",
+  "offers":[
+    {"id":"V1","material":"japanese-tissue-12gsm","unit_price":50,"minimum":10,"delivery":"2026-05-05","expedite_fee":100,"expedite_delivery":"2026-05-02"},
+    {"id":"V2","material":"japanese-tissue-12gsm","unit_price":150,"minimum":5,"delivery":"2026-05-01","expedite_fee":0,"expedite_delivery":"2026-05-01"}
+  ]
+}
