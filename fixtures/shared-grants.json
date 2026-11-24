@@ -1,0 +1,11 @@
+{
+  "grants": [
+    {"id":"G12","cap":1000,"rate":0.8},
+    {"id":"G13","cap":1000,"rate":0.8}
+  ],
+  "expenses": [
+    {"id":"binding","amount":1000,"eligible_grants":["G12","G13"]},
+    {"id":"case-12","amount":250,"eligible_grants":["G12"]},
+    {"id":"case-13","amount":250,"eligible_grants":["G13"]}
+  ]
+}
