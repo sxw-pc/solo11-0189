@@ -1,11 +1,14 @@
 {
+  "currency": "CNY",
+  "self_fund": 300,
   "grants": [
-    {"id":"G12","cap":1000,"rate":0.8},
-    {"id":"G13","cap":1000,"rate":0.8}
+    {"id": "G12", "cap": 1000, "rate": 0.8, "purposes": ["binding", "case-12"]},
+    {"id": "G13", "cap": 1000, "rate": 0.8, "purposes": ["binding", "case-13"]}
   ],
   "expenses": [
-    {"id":"binding","amount":1000,"eligible_grants":["G12","G13"]},
-    {"id":"case-12","amount":250,"eligible_grants":["G12"]},
-    {"id":"case-13","amount":250,"eligible_grants":["G13"]}
+    {"id": "binding", "payment": "PAY-BIND", "amount": 1000, "purpose": "binding", "eligible_grants": ["G12", "G13"]},
+    {"id": "binding-journal", "payment": "PAY-BIND", "amount": 1000, "purpose": "binding", "eligible_grants": ["G12", "G13"]},
+    {"id": "case-12", "payment": "PAY-12", "amount": 250, "purpose": "case-12", "eligible_grants": ["G12"]},
+    {"id": "case-13", "payment": "PAY-13", "amount": 250, "purpose": "case-13", "eligible_grants": ["G13"]}
   ]
 }
