@@ -1,5 +1,82 @@
-[
-  {"upload_id":"tile-a","device":"scanner","region":"top-left","sha":"raw-a"},
-  {"upload_id":"tile-b","device":"scanner","region":"top-right","sha":"raw-b"},
-  {"upload_id":"tile-c","device":"proxy","region":"top-right","sha":"jpeg-c"}
-]
+{
+  "schema": "page-tile-bundle/1",
+  "page": {
+    "page_id": "V1-P07",
+    "physical_sheet": "sheet-07",
+    "page_turn": "right-to-left",
+    "page_width_mm": 300,
+    "page_height_mm": 400,
+    "coordinate_origin": "top-left",
+    "units": "mm",
+    "calibration_board": {
+      "present": false,
+      "grid_signature": null,
+      "note": "底部原始瓦片缺失，坐标校准板尚未随件找回"
+    }
+  },
+  "tiles": [
+    {
+      "upload_id": "tile-a",
+      "page_id": "V1-P07",
+      "device": "scanner",
+      "tier": "raw",
+      "grid_cell": "top-left",
+      "region": "top-left",
+      "sha": "raw-a",
+      "pixel_width": 600,
+      "pixel_height": 800,
+      "transform": [0.25, 0.25, 0.0, 0.0],
+      "footprint": {"x0": 0.0, "y0": 0.0, "x1": 150.0, "y1": 200.0}
+    },
+    {
+      "upload_id": "tile-b",
+      "page_id": "V1-P07",
+      "device": "scanner",
+      "tier": "raw",
+      "grid_cell": "top-right",
+      "region": "top-right",
+      "sha": "raw-b",
+      "pixel_width": 600,
+      "pixel_height": 800,
+      "transform": [0.25, 0.25, 150.0, 0.0],
+      "footprint": {"x0": 150.0, "y0": 0.0, "x1": 300.0, "y1": 200.0}
+    },
+    {
+      "upload_id": "tile-c",
+      "page_id": "V1-P07",
+      "device": "proxy",
+      "tier": "transcode",
+      "grid_cell": "top-right",
+      "region": "top-right",
+      "sha": "jpeg-c",
+      "transcode_of": "tile-b",
+      "transcode_steps": ["re-encode jpeg q85", "pixel row reorder"],
+      "compression_ratio": 0.42,
+      "pixel_width": 600,
+      "pixel_height": 800,
+      "transform": [0.25, 0.25, 150.0, 0.0],
+      "footprint": {"x0": 150.0, "y0": 0.0, "x1": 300.0, "y1": 200.0}
+    }
+  ],
+  "occlusions": [
+    {"region": "top-left", "footprint": {"x0": 120.0, "y0": 160.0, "x1": 150.0, "y1": 200.0}, "note": "馆藏签条遮挡，遮挡与缺图分开列明"}
+  ],
+  "folded_edges": [
+    {"region": "top-left", "footprint": {"x0": 0.0, "y0": 188.0, "x1": 40.0, "y1": 200.0}, "note": "折边，单独列明，不并入口径遮挡"}
+  ],
+  "seal_manifest": {
+    "sealed": true,
+    "sealed_at": "2026-11-20T09:00:00+08:00",
+    "entries": [
+      {"upload_id": "tile-a", "sha": "raw-a", "tier": "raw"},
+      {"upload_id": "tile-b", "sha": "raw-b", "tier": "raw"}
+    ],
+    "note": "转码件 tile-c 不入原始封存清单；底部原始瓦片缺失故暂封存"
+  },
+  "legacy_report": {
+    "uploads": 3,
+    "status": "完整",
+    "rule": "count upload_id only",
+    "note": "旧错误报告：uploads=3 即判完整，但物理区域仅覆盖 top-left/top-right，tile-c 为 tile-b 转码"
+  }
+}
