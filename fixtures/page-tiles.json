@@ -1,0 +1,5 @@
+[
+  {"upload_id":"tile-a","device":"scanner","region":"top-left","sha":"raw-a"},
+  {"upload_id":"tile-b","device":"scanner","region":"top-right","sha":"raw-b"},
+  {"upload_id":"tile-c","device":"proxy","region":"top-right","sha":"jpeg-c"}
+]
