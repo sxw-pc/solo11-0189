@@ -1,0 +1,7 @@
+{
+  "container":"D1","capacity":10,
+  "entries":[
+    {"id":"w1","container":"D1","kg":6,"category":"wet-cellulose","source":"MS-41"},
+    {"id":"w2","container":"D1","kg":3,"category":"solvent-pads","source":"MS-52"}
+  ]
+}
